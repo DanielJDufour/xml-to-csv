@@ -1,0 +1,27 @@
+{
+  "name": "@danieljdufour/xml-to-csv",
+  "version": "0.0.0",
+  "description": "Declaratively Convert XML to CSV",
+  "main": "index.js",
+  "type": "module",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "format": "npx prettier --arrow-parens=avoid --print-width=200 --trailing-comma=none --write *.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "csv",
+    "xml"
+  ],
+  "author": "Daniel J. Dufour",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "flug": "^2.8.2"
+  },
+  "dependencies": {
+    "papaparse": "^5.4.1",
+    "xml-utils": "^1.8.0"
+  }
+}
