@@ -1,6 +1,6 @@
 {
   "name": "@danieljdufour/xml-to-csv",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Declaratively Convert XML to CSV",
   "main": "index.js",
   "type": "module",
