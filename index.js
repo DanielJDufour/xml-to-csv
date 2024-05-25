@@ -48,15 +48,15 @@ export function convert(
         return it.inner;
       });
 
-      if (clean) {
+      if (typeof col.clean === "boolean" ? col.clean : clean) {
         values = values.filter(it => it !== null && it !== undefined && it !== "");
       }
 
-      if (_sort) {
+      if (typeof col.sort === "boolean" ? col.sort : _sort) {
         values.sort((a, b) => (a[1] > b[1] ? 1 : a[1] < b[1] ? -1 : 0));
       }
 
-      if (unique) {
+      if (typeof col.unique === "boolean" ? col.unique : unique) {
         values = values.filter(([_, str], i) => values.slice(0, i).filter(([_, substr]) => str === substr).length === 0);
       }
 
