@@ -41,3 +41,22 @@ test("more advanced", ({ eq }) => {
     "name,protocol,url\r\natlanteil.pdf,WWW:DOWNLOAD-1.0-http--download,http://geomap.arpa.veneto.it/geoserver/wms?layers=geonode%3Aatlanteil&amp;width=616&amp;bbox=10.2822923743907%2C44.418521542726054%2C13.3486486092171%2C47.15260827566466&amp;service=WMS&amp;format=application%2Fpdf&amp;srs=EPSG%3A4326&amp;request=GetMap&amp;height=550\r\natlanteil.png,WWW:DOWNLOAD-1.0-http--download,http://geomap.arpa.veneto.it/geoserver/wms?layers=geonode%3Aatlanteil&amp;width=616&amp;bbox=10.2822923743907%2C44.418521542726054%2C13.3486486092171%2C47.15260827566466&amp;service=WMS&amp;format=image%2Fpng&amp;srs=EPSG%3A4326&amp;request=GetMap&amp;height=550\r\natlanteil.kml,WWW:DOWNLOAD-1.0-http--download,http://geomap.arpa.veneto.it/geoserver/wms/kml?layers=geonode%3Aatlanteil&amp;mode=download\r\natlanteil.kml,WWW:DOWNLOAD-1.0-http--download,http://geomap.arpa.veneto.it/geoserver/wms/kml?layers=geonode%3Aatlanteil&amp;mode=refresh\r\natlanteil.tiles,WWW:DOWNLOAD-1.0-http--download,http://geomap.arpa.veneto.it/geoserver/gwc/service/gmaps?layers=geonode:atlanteil&amp;zoom={z}&amp;x={x}&amp;y={y}&amp;format=image/png8"
   );
 });
+
+test("complex path", ({ eq }) => {
+  const xml = readFileSync("./data/iso.xml", "utf-8");
+  const config = {
+    start: [{ name: "gmd:MD_DigitalTransferOptions", index: 0 }, "gmd:CI_OnlineResource"],
+    columns: [
+      { name: "name", path: ["gmd:name", "gco:CharacterString"] },
+      { name: "url", path: [{ name: "gmd:description", index: 0 }, "gco:CharacterString"] }
+    ],
+    offset: 1,
+    limit: 3
+  };
+  const csv = convert(xml, config);
+  console.log(JSON.stringify(csv));
+  eq(
+    csv,
+    "name,url\r\natlanteil.jpg,Veneto Atlas of artificial night sky brightness - GRID (JPEG Format)\r\natlanteil.pdf,Veneto Atlas of artificial night sky brightness - GRID (PDF Format)\r\natlanteil.png,Veneto Atlas of artificial night sky brightness - GRID (PNG Format)"
+  );
+});
